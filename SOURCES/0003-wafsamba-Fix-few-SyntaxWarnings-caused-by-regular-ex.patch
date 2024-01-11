@@ -47,10 +47,10 @@ Subject: [PATCH] wafsamba: Fix few SyntaxWarnings caused by regular
  buildtools/wafsamba/symbols.py         |  4 ++--
  8 files changed, 17 insertions(+), 17 deletions(-)
 
-diff --git a/buildtools/wafsamba/configure_file.py b/buildtools/wafsamba/configure_file.py
-index 6ad43546249fba7b4c0a037035e8574e7a9d2753..98a58a4604513e3633317e73299c1c9280c250d2 100644
---- a/buildtools/wafsamba/configure_file.py
-+++ b/buildtools/wafsamba/configure_file.py
+Index: talloc-2.4.0/buildtools/wafsamba/configure_file.py
+===================================================================
+--- talloc-2.4.0.orig/buildtools/wafsamba/configure_file.py	2023-01-19 08:26:14.036738067 +0100
++++ talloc-2.4.0/buildtools/wafsamba/configure_file.py	2023-01-19 08:26:20.706716759 +0100
 @@ -13,10 +13,10 @@ def subst_at_vars(task):
      s = task.inputs[0].read()
  
@@ -64,10 +64,10 @@ index 6ad43546249fba7b4c0a037035e8574e7a9d2753..98a58a4604513e3633317e73299c1c92
              vname = v[1:-1]
              if not vname in task.env and vname.upper() in task.env:
                  vname = vname.upper()
-diff --git a/buildtools/wafsamba/pkgconfig.py b/buildtools/wafsamba/pkgconfig.py
-index b83d5f382a58352bb3318b594aa2b45fc02d87d5..b77bd618c8903789c7ba9e64a6972a4e080f1821 100644
---- a/buildtools/wafsamba/pkgconfig.py
-+++ b/buildtools/wafsamba/pkgconfig.py
+Index: talloc-2.4.0/buildtools/wafsamba/pkgconfig.py
+===================================================================
+--- talloc-2.4.0.orig/buildtools/wafsamba/pkgconfig.py	2023-01-19 08:26:14.037738063 +0100
++++ talloc-2.4.0/buildtools/wafsamba/pkgconfig.py	2023-01-19 08:26:20.706716759 +0100
 @@ -9,12 +9,12 @@ def subst_at_vars(task):
  
      s = task.inputs[0].read()
@@ -83,11 +83,11 @@ index b83d5f382a58352bb3318b594aa2b45fc02d87d5..b77bd618c8903789c7ba9e64a6972a4e
              vname = v[1:-1]
              if not vname in task.env and vname.upper() in task.env:
                  vname = vname.upper()
-diff --git a/buildtools/wafsamba/samba_abi.py b/buildtools/wafsamba/samba_abi.py
-index 5e7686da3d68b1ebcd842b8a319a5997fa9cf600..761667fcfe1f3937be22c8261b45dcb3979ae4cd 100644
---- a/buildtools/wafsamba/samba_abi.py
-+++ b/buildtools/wafsamba/samba_abi.py
-@@ -21,16 +21,16 @@ version_key = lambda x: list(map(int, x.split(".")))
+Index: talloc-2.4.0/buildtools/wafsamba/samba_abi.py
+===================================================================
+--- talloc-2.4.0.orig/buildtools/wafsamba/samba_abi.py	2023-01-19 08:26:14.037738063 +0100
++++ talloc-2.4.0/buildtools/wafsamba/samba_abi.py	2023-01-19 08:26:20.706716759 +0100
+@@ -21,16 +21,16 @@ version_key = lambda x: list(map(int, x.
  def normalise_signature(sig):
      '''normalise a signature from gdb'''
      sig = sig.strip()
@@ -118,11 +118,11 @@ index 5e7686da3d68b1ebcd842b8a319a5997fa9cf600..761667fcfe1f3937be22c8261b45dcb3
      return sig
  
  
-diff --git a/buildtools/wafsamba/samba_conftests.py b/buildtools/wafsamba/samba_conftests.py
-index ef632ba903369e4211991f17a3b204bcd96c3a2f..63e50567860ff890b00b0ce6c7607c917b7329d1 100644
---- a/buildtools/wafsamba/samba_conftests.py
-+++ b/buildtools/wafsamba/samba_conftests.py
-@@ -397,7 +397,7 @@ WriteMakefile(
+Index: talloc-2.4.0/buildtools/wafsamba/samba_conftests.py
+===================================================================
+--- talloc-2.4.0.orig/buildtools/wafsamba/samba_conftests.py	2023-01-19 08:26:14.038738060 +0100
++++ talloc-2.4.0/buildtools/wafsamba/samba_conftests.py	2023-01-19 08:26:20.706716759 +0100
+@@ -398,7 +398,7 @@ WriteMakefile(
  
      if section:
          man = Utils.readf(os.path.join(bdir,'Makefile'))
@@ -131,24 +131,11 @@ index ef632ba903369e4211991f17a3b204bcd96c3a2f..63e50567860ff890b00b0ce6c7607c91
          if not m:
              conf.end_msg('not found', color='YELLOW')
              return
-diff --git a/buildtools/wafsamba/samba_cross.py b/buildtools/wafsamba/samba_cross.py
-index 8863c2c53e7d7dd9317c9233f0085ffd0eea6b2f..34793902fba884cf2d8358bf4315dc98027266b6 100644
---- a/buildtools/wafsamba/samba_cross.py
-+++ b/buildtools/wafsamba/samba_cross.py
-@@ -77,7 +77,7 @@ def cross_answer(ca_file, msg):
-                 f.close()
-                 return (0, ans.strip("'"))
-             else:
--                m = re.match('\(\s*(-?\d+)\s*,\s*\"(.*)\"\s*\)', ans)
-+                m = re.match(r'\(\s*(-?\d+)\s*,\s*\"(.*)\"\s*\)', ans)
-                 if m:
-                     f.close()
-                     return (int(m.group(1)), m.group(2))
-diff --git a/buildtools/wafsamba/samba_headers.py b/buildtools/wafsamba/samba_headers.py
-index a268c011c5d8e406e0d763554c55668cfb5388bc..c8bee19010978a04460b0637fcc8fd484a699ea8 100644
---- a/buildtools/wafsamba/samba_headers.py
-+++ b/buildtools/wafsamba/samba_headers.py
-@@ -19,7 +19,7 @@ def header_install_path(header, header_path):
+Index: talloc-2.4.0/buildtools/wafsamba/samba_headers.py
+===================================================================
+--- talloc-2.4.0.orig/buildtools/wafsamba/samba_headers.py	2023-01-19 08:26:14.039738057 +0100
++++ talloc-2.4.0/buildtools/wafsamba/samba_headers.py	2023-01-19 08:26:20.707716756 +0100
+@@ -19,7 +19,7 @@ def header_install_path(header, header_p
      return ''
  
  
@@ -157,11 +144,11 @@ index a268c011c5d8e406e0d763554c55668cfb5388bc..c8bee19010978a04460b0637fcc8fd48
  
  # a dictionary mapping source header paths to public header paths
  header_map = {}
-diff --git a/buildtools/wafsamba/samba_utils.py b/buildtools/wafsamba/samba_utils.py
-index ad97de1859ba24c4afd5106b4f9694b0dc855643..75c9794ec40f327ef8ccf9aa33fafd6ed6181e3b 100644
---- a/buildtools/wafsamba/samba_utils.py
-+++ b/buildtools/wafsamba/samba_utils.py
-@@ -255,10 +255,10 @@ def TO_LIST(str, delimiter=None):
+Index: talloc-2.4.0/buildtools/wafsamba/samba_utils.py
+===================================================================
+--- talloc-2.4.0.orig/buildtools/wafsamba/samba_utils.py	2023-01-19 08:26:14.040738054 +0100
++++ talloc-2.4.0/buildtools/wafsamba/samba_utils.py	2023-01-19 08:26:20.707716756 +0100
+@@ -237,10 +237,10 @@ def TO_LIST(str, delimiter=None):
  
  def subst_vars_error(string, env):
      '''substitute vars, throw an error if a variable is not defined'''
@@ -174,10 +161,10 @@ index ad97de1859ba24c4afd5106b4f9694b0dc855643..75c9794ec40f327ef8ccf9aa33fafd6e
              vname = v[2:-1]
              if not vname in env:
                  raise KeyError("Failed to find variable %s in %s in env %s <%s>" % (vname, string, env.__class__, str(env)))
-diff --git a/buildtools/wafsamba/symbols.py b/buildtools/wafsamba/symbols.py
-index 3eca3d46bd71cf0780b3c8e36a26b96bd3aa3b83..73e8ca8ce53ef5d956ac58e14a2403dd49f01109 100644
---- a/buildtools/wafsamba/symbols.py
-+++ b/buildtools/wafsamba/symbols.py
+Index: talloc-2.4.0/buildtools/wafsamba/symbols.py
+===================================================================
+--- talloc-2.4.0.orig/buildtools/wafsamba/symbols.py	2023-01-19 08:26:14.041738051 +0100
++++ talloc-2.4.0/buildtools/wafsamba/symbols.py	2023-01-19 08:26:20.707716756 +0100
 @@ -119,9 +119,9 @@ def find_ldd_path(bld, libname, binary):
  
  
@@ -190,6 +177,3 @@ index 3eca3d46bd71cf0780b3c8e36a26b96bd3aa3b83..73e8ca8ce53ef5d956ac58e14a2403dd
  
  def get_libs(bld, binname):
      '''find the list of linked libraries for any binary or library
--- 
-2.22.0
-

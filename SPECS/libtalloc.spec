@@ -5,10 +5,10 @@
 %endif
 
 Name: libtalloc
-Version: 2.3.4
-Release: 1%{?dist}
+Version: 2.4.0
+Release: 2%{?dist}
 Summary: The talloc library
-License: LGPLv3+
+License: LGPL-3.0-or-later
 URL: https://talloc.samba.org/
 
 Source0: https://www.samba.org/ftp/talloc/talloc-%{version}.tar.gz
@@ -114,6 +114,12 @@ cp -a doc/man/man3 %{buildroot}%{_mandir}
 %endif
 
 %changelog
+* Mon Jun 05 2023 Pavel Filipenský <pfilipen@redhat.com> - 2.4.0-2
+- resolves: rhbz#2190418 - Rebuilt to retrigger brew build
+
+* Tue May 16 2023 Pavel Filipenský <pfilipen@redhat.com> - 2.4.0-1
+- resolves: rhbz#2190418 - Rebase to version 2.4.0
+
 * Thu Oct 20 2022 Andreas Schneider <asn@redhat.com> - 2.3.4-1
 - resolves: rhbz#2132000 - Rebase to version 2.3.4
 
