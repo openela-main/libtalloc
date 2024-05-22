@@ -5,8 +5,8 @@
 %endif
 
 Name: libtalloc
-Version: 2.4.0
-Release: 3%{?dist}
+Version: 2.4.1
+Release: 0%{?dist}
 Summary: The talloc library
 License: LGPL-3.0-or-later
 URL: https://talloc.samba.org/
@@ -16,7 +16,6 @@ Source1: https://www.samba.org/ftp/talloc/talloc-%{version}.tar.asc
 Source2: https://download.samba.org/pub/samba/samba-pubkey.asc#/talloc.keyring
 
 # Patches
-Patch0001: 0003-wafsamba-Fix-few-SyntaxWarnings-caused-by-regular-ex.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -114,6 +113,9 @@ cp -a doc/man/man3 %{buildroot}%{_mandir}
 %endif
 
 %changelog
+* Wed Nov 15 2023 Pavel Filipenský <pfilipen@redhat.com> - 2.4.1-0
+- resolves: RHEL-16508 - Rebase to version 2.4.1
+
 * Tue Jun 06 2023 Pavel Filipenský <pfilipen@redhat.com> - 2.4.0-3
 - resolves: rhbz#2190419 - Rebuild to trigger distrobaker sync
 
