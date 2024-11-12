@@ -1,11 +1,5 @@
-%if 0%{?fedora} || 0%{?rhel} > 7
-%bcond_without python3
-%else
-%bcond_with python3
-%endif
-
 Name: libtalloc
-Version: 2.4.1
+Version: 2.4.2
 Release: 1%{?dist}
 Summary: The talloc library
 License: LGPL-3.0-or-later
@@ -15,15 +9,11 @@ Source0: https://www.samba.org/ftp/talloc/talloc-%{version}.tar.gz
 Source1: https://www.samba.org/ftp/talloc/talloc-%{version}.tar.asc
 Source2: https://download.samba.org/pub/samba/samba-pubkey.asc#/talloc.keyring
 
-# Patches
-
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: libxslt
 BuildRequires: docbook-style-xsl
-%if %{with python3}
 BuildRequires: python3-devel
-%endif
 BuildRequires: doxygen
 BuildRequires: gnupg2
 
@@ -41,7 +31,6 @@ Requires: libtalloc = %{version}-%{release}
 %description devel
 Header files needed to develop programs that link against the Talloc library.
 
-%if %{with python3}
 %package -n python3-talloc
 Summary: Python bindings for the Talloc library
 Requires: libtalloc = %{version}-%{release}
@@ -57,15 +46,12 @@ Requires: python3-talloc = %{version}-%{release}
 
 %description -n python3-talloc-devel
 Development libraries for python3-talloc
-%endif
 
 %prep
 %autosetup -n talloc-%{version} -p1
 
 %build
 zcat %{SOURCE0} | gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} -
-# workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1217376
-export python_LDFLAGS=""
 
 %configure --disable-rpath \
            --disable-rpath-install \
@@ -95,7 +81,6 @@ cp -a doc/man/man3 %{buildroot}%{_mandir}
 %{_mandir}/man3/talloc*.3*
 %{_mandir}/man3/libtalloc*.3*
 
-%if %{with python3}
 %files -n python3-talloc
 %{_libdir}/libpytalloc-util.cpython*.so.*
 %{python3_sitearch}/talloc.cpython*.so
@@ -104,15 +89,14 @@ cp -a doc/man/man3 %{buildroot}%{_mandir}
 %{_includedir}/pytalloc.h
 %{_libdir}/pkgconfig/pytalloc-util.cpython-*.pc
 %{_libdir}/libpytalloc-util.cpython*.so
-%endif
 
 %ldconfig_scriptlets
-
-%if %{with python3}
 %ldconfig_scriptlets -n python3-talloc
-%endif
 
 %changelog
+* Wed Apr 24 2024 Pavel Filipenský <pfilipen@redhat.com> - 2.4.2-1
+- resolves: RHEL-33758 - Rebase to version 2.4.2
+
 * Thu Nov 30 2023 Andreas Schneider <asn@redhat.com> - 2.4.1-1
 - resolves: RHEL-16479 - Rebase to version 2.4.1
 
